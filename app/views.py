@@ -83,3 +83,38 @@ def after_login(resp):
     login_user(user, remember = remember_me)
     return redirect(request.args.get('next') or url_for('index'))
 
+@app.before_request
+def before_request():
+    g.user = current_user
+
+@app.route('/')
+@app.route('/index')
+@login_required
+def index():
+    user = g.user
+    posts = [
+        {
+            'author': { 'nickname': 'John' },
+            'body': 'Beautiful day in Portland!'
+        },
+        {
+            'author': { 'nickname': 'Susan' },
+            'body': 'The Avengers movie was so cool!'
+        }
+    ]
+    return render_template('index.html',
+        title = 'Home',
+        user = user,
+        posts = posts)
+
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+
+
+

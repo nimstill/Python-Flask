@@ -18,3 +18,7 @@ lm.init_app(app)
 oid = OpenID(app, os.path.join(basedir, 'tmp'))
 
 
+lm = LoginManager()
+lm.init_app(app)
+lm.login_view = 'login'
+
