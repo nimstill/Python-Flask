@@ -117,6 +117,7 @@ def logout():
 
 
 
+#ch5
 
 @app.route('/user/<nickname>')
 @login_required
@@ -132,3 +133,5 @@ def user(nickname):
     return render_template('user.html',
         user = user,
         posts = posts)
+
+
