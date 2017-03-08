@@ -100,4 +100,3 @@ class User(db.Model):
 
 
 
-some  pose
