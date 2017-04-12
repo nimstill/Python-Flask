@@ -1,5 +1,6 @@
 CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
+WHOOSH_BASE = os.path.join(basedir, 'search.db')
 
 OPENID_PROVIDERS = [
     { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
