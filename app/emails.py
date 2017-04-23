@@ -20,3 +20,22 @@ def follower_notification(followed, follower):
         render_template("follower_email.html",
             user = followed, follower = follower)
         )
+
+
+#在 Python 中异步调用
+
+from threading import Thread
+from app import app
+
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+def send_email(subject, sender, recipients, text_body, html_body):
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.body = text_body
+    msg.html = html_body
+    thr = Thread(target=send_async_email, args=[app, msg])
+    thr.start()
+
+
