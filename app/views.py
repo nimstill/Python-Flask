@@ -192,3 +192,27 @@ def after_login(resp):
     return redirect(request.args.get('next') or url_for('index'))
 
 
+from config import MAX_SEARCH_REAULTS
+
+@app.route('/search_results/<query>')
+@login_required
+
+def search_results(query):
+    results = Post.query.whoosh_search(query,MAX_SEARCH_REAULTS).all()
+    return render_template('search_results.html',
+        query = query,
+        results = results)
+
+
+from emails import follower_notification
+
+@app.route('/follow/<nickname>')
+@login_required
+
+def follow(nickname):
+    user = User.query.filter_by(nickname = nickname).first()
+    follower_notification(user, g.user)
+    return redirect(url_for('user', nickname = nickname))
+
+
+    
